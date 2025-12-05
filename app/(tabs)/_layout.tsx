@@ -1,33 +1,53 @@
+import { COLORS } from '@/constants/theme';
+import { HapticTab } from '@/src/components/haptic-tab';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: COLORS.textMuted,
+        tabBarStyle: {
+          backgroundColor: COLORS.surface,
+          borderTopColor: COLORS.border,
+          borderTopWidth: 1,
+          paddingTop: 8,
+          paddingBottom: 20,
+          height: 100,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '500',
+        },
         headerShown: false,
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Home Screen',
+          tabBarIcon: ({ color }) =>
+          <Ionicons name="home" size={24} color={color} />
+        }}
+      />
+
+      <Tabs.Screen
+        name="ChatListScreen"
+        options={{
+          title: 'Chat List',
+          tabBarIcon: ({ color }) => 
+            <Ionicons name="chatbox-ellipses" size={24} color={color} />
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="SettingsScreen"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Settings Screen',
+          tabBarIcon: ({ color }) =>
+            <Ionicons name="settings" size={24} color={color} />,
         }}
       />
     </Tabs>
